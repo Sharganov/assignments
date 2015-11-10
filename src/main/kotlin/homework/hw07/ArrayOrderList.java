@@ -1,7 +1,6 @@
 package homework.hw07;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class ArrayOrderList<T extends Comparable<? super T>>
         extends IOrderList<T> {
@@ -90,10 +89,9 @@ public class ArrayOrderList<T extends Comparable<? super T>>
             @Override
             public T next() {
                 index++;
-                if(hasNext()) return arr[index - 1];
-                throw new NoSuchElementException();
+                return arr[index - 1];
             }
-            
+
             @Override
             public void remove() {}
         };

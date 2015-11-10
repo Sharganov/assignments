@@ -76,7 +76,7 @@ class HW07Test {
     @Test fun compareToTest03()
     {
 
-        val list1 = KotlinAtdOrderList<Int>()
+        val list1 = KotlinArrayOrderList<Int>()
         val list2 = KotlinAtdOrderList<Int>()
 
         for( i in 0..15 )
@@ -123,7 +123,7 @@ class HW07Test {
     @Test fun equalsTest03()
     {
         val list1 = KotlinAtdOrderList<Int>()
-        val list2 = KotlinAtdOrderList<Int>()
+        val list2 = KotlinArrayOrderList<Int>()
 
         for(i in 0..15)
         {

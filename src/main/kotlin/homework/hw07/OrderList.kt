@@ -3,19 +3,15 @@ package homework.hw07
 import java.util.*
 
 
-abstract  class OrderList<T : Comparable<T>> : Comparable<OrderList<out T>>,Iterable<T> {
+abstract class OrderList<T : Comparable<T>> : Comparable<OrderList<out T>>,Iterable<T> {
 
     override fun iterator(): Iterator<T> {
         return this.iterator()
     }
 
     override fun hashCode(): Int {
-        var i = size() - 1
         var answer = 0
-        while (i > 0) {
-            answer =  (answer + get(i).hashCode()) * 31
-            i--
-        }
+        for(item in this) answer =  (answer + item.hashCode()) * 31
         return Math.abs(answer)
     }
 
@@ -137,14 +133,26 @@ class KotlinAtdOrderList<T : Comparable<T>>() : OrderList<T>() {
     }
 }
 
-
 class KotlinArrayOrderList<T : Comparable<T>> : OrderList<T>() {
 
     private var arr: Array<T> = arrayOfNulls<Comparable<Any>>(10) as Array<T>
     private var count = 0
 
     override fun iterator(): Iterator<T> {
-        return arr.iterator()
+
+        return object : Iterator<T> {
+
+            private var index = 0
+
+            override fun hasNext(): Boolean {
+                return index < count
+            }
+
+            override fun next(): T {
+                index++
+                return arr[index - 1]
+            }
+        }
     }
 
     override fun add(value: T) {
@@ -185,7 +193,6 @@ class KotlinArrayOrderList<T : Comparable<T>> : OrderList<T>() {
         while (i < count && arr[i] != value) i++
         toLeft(i)
     }
-
 
     override fun size(): Int {
         return count

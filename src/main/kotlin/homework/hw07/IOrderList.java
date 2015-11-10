@@ -3,19 +3,15 @@ package homework.hw07;
 
 import java.util.Iterator;
 
-public abstract class IOrderList<T extends Comparable<? super T>> implements Comparable<IOrderList<? extends T>>, Iterable<T> {
+public abstract class IOrderList<T extends Comparable<? super T>> implements
+        Comparable<IOrderList<? extends T>>, Iterable<T> {
 
     @Override
     public int hashCode() {
-        int i = size() - 1;
         int answer = 0;
-        while (i > 0) {
-            answer = (answer + get(i).hashCode()) * 31;
-            i--;
-        }
+        for(T item : this) answer = (answer + item.hashCode()) * 31;
         return Math.abs(answer);
     }
-
 
     @Override
     public boolean equals(Object other) {
@@ -29,7 +25,7 @@ public abstract class IOrderList<T extends Comparable<? super T>> implements Com
         Iterator<T> iterator = otherList.iterator();
         for( T item : this)
             if(item != iterator.next()) return false;
-        return false;
+        return true;
     }
 
     @Override
@@ -45,7 +41,6 @@ public abstract class IOrderList<T extends Comparable<? super T>> implements Com
         return 0;
     }
 
-    @Override
     public Iterator<T> iterator() {
         return this.iterator();
     }
